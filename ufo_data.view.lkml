@@ -6,6 +6,8 @@ view: ufo_data {
     sql: ${TABLE}.city ;;
   }
 
+# adding some nonsense here to test merging etc.
+
   dimension: comments {
     type: string
     sql: ${TABLE}.comments ;;
