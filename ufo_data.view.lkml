@@ -12,6 +12,8 @@ view: ufo_data {
 
 # let's add a but more nonsense to test it in Dev
 
+# hopefully final nonsense to confirm how this works
+
   dimension: comments {
     type: string
     sql: ${TABLE}.comments ;;
