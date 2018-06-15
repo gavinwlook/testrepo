@@ -10,6 +10,8 @@ view: ufo_data {
 
 # even more nonsense here to test merging etc.
 
+# let's add a but more nonsense to test it in Dev
+
   dimension: comments {
     type: string
     sql: ${TABLE}.comments ;;
