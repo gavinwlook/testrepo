@@ -8,7 +8,7 @@ include: "*.dashboard"
 
 datagroup: testprojectforgit_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
-  max_cache_age: "4 hours"
+  max_cache_age: "36 hours"
 
 }
 
