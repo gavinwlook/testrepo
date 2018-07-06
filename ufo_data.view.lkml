@@ -6,15 +6,7 @@ view: ufo_data {
     sql: ${TABLE}.city ;;
   }
 
-# adding some nonsense here to test merging etc.
-
-# even more nonsense here to test merging etc.
-
-# let's add a but more nonsense to test it in Dev
-
-# hopefully final nonsense to confirm how this works
-
-# nope
+# SENDING THIS TO THE BARE REPo AGHGHGHGHGHHG
 
 
   dimension: comments {
