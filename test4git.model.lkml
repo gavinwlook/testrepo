@@ -50,6 +50,20 @@ explore: order_items {
     sql_on: ${orders.user_id} = ${users.id} ;;
     relationship: many_to_one
   }
+
+  join: customerfacts {
+    type: left_outer
+    sql_on: ${users.id} = ${customerfacts.user_id} ;;
+    relationship: one_to_one
+  }
+
+
+  join: pdtstuff {
+    type: left_outer
+    sql_on: ${users.state} = ${pdtstuff.customer_state} ;;
+    relationship: one_to_one
+  }
+
 }
 
 explore: orders {
