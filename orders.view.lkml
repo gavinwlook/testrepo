@@ -34,6 +34,21 @@ view: orders {
 
   measure: count {
     type: count
+#     html:  <p style="font-size:30px"> {{ value }} </p>;;
+    drill_fields: [id, users.first_name, users.last_name, users.id, order_items.count]
+  }
+
+#   dimension: name {
+#     type: string
+#     sql:  ${TABLE}.name ;;
+#     html:   <font color="green">{{ value }}</font>;;
+#   }
+
+
+
+  measure: filtered_count {
+    type: sum
+    sql: CASE WHEN {% condition users.city_filter %} demo_db.users.city {% endcondition %} THEN 1 ELSE NULL END ;;
     drill_fields: [id, users.first_name, users.last_name, users.id, order_items.count]
   }
 }

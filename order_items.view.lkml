@@ -38,6 +38,15 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  # {% assign today_date = 'now' | date: '%s' %}
+# {% assign pre_date = product.metafields.Release-Date.preOrder | date: '%s' %}
+# {% if today_date > pre_date %}
+
+filter: date_filter {
+  type: date
+}
+
+
   measure: count {
     type: count
     drill_fields: [id, inventory_items.id, orders.id]
