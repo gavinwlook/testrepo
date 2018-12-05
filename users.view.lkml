@@ -96,6 +96,7 @@ view: users {
     view_label: ""
     type: count
     drill_fields: [detail*]
+    value_format_name: decimal_3
   }
 
   # ----- Sets of fields for drilling ------
