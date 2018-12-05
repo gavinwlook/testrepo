@@ -13,7 +13,7 @@ datagroup: gavlook_default_datagroup {
   max_cache_age: "1 hour"
 }
 
-persist_with: gavlook_default_datagroup
+# persist_with: gavlook_default_datagroup
 
 explore: events {
   join: users {
@@ -98,6 +98,7 @@ explore: user_data {
 }
 
 explore: users {
+  sql_always_where: ${created_year} > "1990"  ;;
   always_filter: {
     filters: {
       field: state
