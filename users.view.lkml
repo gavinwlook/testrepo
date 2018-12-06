@@ -39,7 +39,7 @@ view: users {
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
-#     suggest_persist_for: "0 hours"
+     suggest_persist_for: "0 hours"
   }
 
   dimension: country {

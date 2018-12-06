@@ -16,6 +16,13 @@ datagroup: gavlook_default_datagroup {
 # persist_with: gavlook_default_datagroup
 
 explore: events {
+#   conditionally_filter: {
+#     filters: {
+#       field: created_date
+#       value: "this month"
+#     }
+#     unless: [created_date]
+#   }
   join: users {
     type: left_outer
     sql_on: ${events.user_id} = ${users.id} ;;
@@ -85,7 +92,15 @@ explore: orders {
   }
 }
 
-explore: products {}
+explore: products {
+    conditionally_filter: {
+    filters: {
+      field: category
+      value: "jeans"
+    }
+    unless: [brand]
+  }
+}
 
 explore: schema_migrations {}
 
