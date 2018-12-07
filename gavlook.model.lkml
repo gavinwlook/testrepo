@@ -39,6 +39,8 @@ explore: inventory_items {
 }
 
  explore: order_items {
+  sql_always_where: {% parameter order_items.returned_status %} ;;
+
 #   sql_always_where: {% assign other_date = order_items.date_filter date_start | date: '%s' %}
 #   {% assign pre_date = '2017-07-23' | date: '%s' %}
 #   TIMESTAMP_TRUNC({{ pre_date }}, MONTH)

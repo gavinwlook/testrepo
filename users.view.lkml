@@ -99,6 +99,15 @@ view: users {
     value_format_name: decimal_3
   }
 
+
+  measure: count_male {
+    view_label: ""
+    sql: (select count(distinct id) from demo_db.users where gender = 'm') ;;
+    type: number
+    drill_fields: [detail*]
+    value_format_name: decimal_3
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [

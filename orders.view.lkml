@@ -14,6 +14,7 @@ view: orders {
       time,
       date,
       week,
+      week_of_year,
       month,
       quarter,
       year

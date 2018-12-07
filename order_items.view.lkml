@@ -1,6 +1,25 @@
 view: order_items {
   sql_table_name: demo_db.order_items ;;
 
+  parameter: returned_status{
+    type: string
+    allowed_value: {
+      label: "cancelled"
+      value: "= 'cancelled'"
+    }
+    allowed_value: {
+      label: "Less than 10,000"
+      value: "= 'complete' "
+    }
+
+    allowed_value: {
+      label: "All Results"
+      value: "= 'pending'"
+    }
+    }
+
+
+
   dimension: id {
     primary_key: yes
     type: number
