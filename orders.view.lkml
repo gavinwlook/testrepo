@@ -1,6 +1,10 @@
 view: orders {
   sql_table_name: demo_db.orders ;;
 
+parameter: date_parameter {
+  type: date
+}
+
   dimension: id {
     primary_key: yes
     type: number
@@ -20,6 +24,16 @@ view: orders {
       year
     ]
     sql: ${TABLE}.created_at ;;
+  }
+
+  dimension: new_lines {
+    type: string
+    sql:  ${user_id};;
+    html:
+    <summary style="outline:none"> User ID: {{ user_id._rendered_value }}
+    </summary>Total: {{ count._rendered_value }}
+    <summary style="outline:none"> Filtered Total: {{ filtered_count._rendered_value }}
+    </summary> <br/>;;
   }
 
   dimension: status {

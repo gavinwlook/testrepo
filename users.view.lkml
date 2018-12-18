@@ -99,6 +99,16 @@ view: users {
     value_format_name: decimal_3
   }
 
+  measure: test_count {
+    type: count_distinct
+    sql:  (select ${city} where ${state} = "New York") ;;
+  }
+
+  measure: test_count2 {
+    type: count_distinct
+    sql:  ${city} ;;
+  }
+
 
   measure: count_male {
     view_label: ""
