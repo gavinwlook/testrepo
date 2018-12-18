@@ -28,7 +28,7 @@ parameter: date_parameter {
 
   dimension: new_lines {
     type: string
-    sql:  ${user_id};;
+    sql:  "placeholder";;
     html:
     <summary style="outline:none"> User ID: {{ user_id._rendered_value }}
     </summary>Total: {{ count._rendered_value }}
