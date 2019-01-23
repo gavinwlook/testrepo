@@ -135,6 +135,6 @@ explore: teststrings {}
 
 explore: valueformat {}
 
-explore: testingndt {}
+explore: ndt_view {}
 
 explore: TestPDTView {}
