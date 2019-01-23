@@ -2,7 +2,7 @@ view: TestPDTView {
   derived_table: {
     sql:
       SELECT
-      1997 AS year, NULL AS make, 'E350' AS model_name
+      1997 AS year, NULL AS make, 'THIS HAS CHANGED' AS model_name
       UNION ALL
       SELECT
       2000 AS year, 'Mercury' AS make, 'Cougar' AS model_name
