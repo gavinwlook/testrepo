@@ -8,7 +8,8 @@ view: TestPDTView {
       2000 AS year, 'Mercury' AS make, 'THIS jtjetjetet' AS model_name
 
       ;;
-      persist_for: "1 minutes"
+#       persist_for: "1 minutes"
+      sql_trigger_value: SELECT MINUTE(CURTIME()) ;;
 
   }
 

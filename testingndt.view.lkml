@@ -7,7 +7,6 @@ view: ndt_view {
       column: id {}
       column: status {}
       column: created_date {}
-      column: tablecalc { field: calculation_1 }
     }
   }
   dimension: id {
@@ -17,8 +16,5 @@ view: ndt_view {
   dimension: created_date {
     type: date
   }
-  dimension: calculation_1 {
-    label: ""
-    type: date
-  }
+
 }
