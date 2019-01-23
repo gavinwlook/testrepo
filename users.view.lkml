@@ -1,6 +1,32 @@
 view: users {
   sql_table_name: demo_db.users ;;
 
+  parameter: granularity_selector {
+    view_label: "Orders"
+  allowed_value: {
+    label: "Quarterly"
+    value: "quarter"
+  }
+  allowed_value: {
+    label: "Monthly"
+    value: "monthly"
+  }
+  }
+
+dimension: date_granularity {
+     label_from_parameter: granularity_selector
+     sql:
+       CASE
+         WHEN {% parameter granularity_selector %} = 'monthly' THEN
+           ${created_month}
+         WHEN {% parameter granularity_selector %} = 'quarter' THEN
+           ${created_quarter}
+         ELSE
+           NULL
+       END ;;
+ }
+
+
   dimension: id {
     view_label: ""
     primary_key: yes

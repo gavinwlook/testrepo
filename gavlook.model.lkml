@@ -115,13 +115,26 @@ explore: user_data {
 }
 
 explore: users {
-  sql_always_where: ${created_year} > "1990"  ;;
-  always_filter: {
-    filters: {
-      field: state
-      value: "New York"}
-    }
+#   sql_always_where: ${created_year} > "1990"  ;;
+#   always_filter: {
+#     filters: {
+#       field: state
+#       value: "New York"}
+#     }
   view_label: ""
+  join: orders {
+    type: left_outer
+    sql_on: ${orders.user_id} = ${users.id} ;;
+    relationship: one_to_many
+  }
 }
 
 explore: users_nn {}
+
+explore: teststrings {}
+
+explore: valueformat {}
+
+explore: testingndt {}
+
+explore: TestPDTView {}
