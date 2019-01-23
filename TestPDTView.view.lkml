@@ -2,10 +2,10 @@ view: TestPDTView {
   derived_table: {
     sql:
       SELECT
-      1997 AS year, NULL AS make, 'THIS HAS CHANGED' AS model_name
+      1997 AS year, NULL AS make, 'THIS HAS' AS model_name
       UNION ALL
       SELECT
-      2000 AS year, 'Mercury' AS make, 'THIS HAS CHANGED too' AS model_name
+      2000 AS year, 'Mercury' AS make, 'THIS HAS too' AS model_name
 
       ;;
       persist_for: "10 minutes"
