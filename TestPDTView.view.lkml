@@ -5,10 +5,10 @@ view: TestPDTView {
       1997 AS year, NULL AS make, 'THIS HAS' AS model_name
       UNION ALL
       SELECT
-      2000 AS year, 'Mercury' AS make, 'THIS HAS too' AS model_name
+      2000 AS year, 'Mercury' AS make, 'THIS jtjetjetet' AS model_name
 
       ;;
-      persist_for: "10 minutes"
+      persist_for: "1 minutes"
 
   }
 
