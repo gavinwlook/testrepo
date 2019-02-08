@@ -44,3 +44,23 @@ explore: users {
 }
 
 explore: pegdatetest {}
+
+
+
+dimension: age {
+    type: number
+    sql: case when ${TABLE}.AGE = "20" then ${TABLE}.AGE
+      else "wrong age";;
+  }
+  
+  dimension_group: created {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
