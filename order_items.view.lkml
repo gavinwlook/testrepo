@@ -65,6 +65,10 @@ filter: date_filter {
   type: date
 }
 
+measure: percent_of_total {
+  type: percent_of_total
+  sql: ${count} ;;
+}
 
   measure: count {
     type: count

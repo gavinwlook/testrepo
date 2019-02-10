@@ -7,7 +7,7 @@ parameter: date_parameter {
 
   dimension: id {
     primary_key: yes
-    type: number
+    type: string
     sql: ${TABLE}.id ;;
   }
 
@@ -26,6 +26,14 @@ parameter: date_parameter {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension: newdate {
+    type: date
+    sql: ${TABLE}.created_at ;;
+    html: {{ rendered_value | date: "%e %b %Y" }} ;;
+  }
+
+
+
   dimension: new_lines {
     type: string
     sql:  "placeholder";;
@@ -40,6 +48,15 @@ parameter: date_parameter {
     type: string
     sql: ${TABLE}.status ;;
   }
+
+  dimension: status2 {
+    type: string
+    sql: case when ${TABLE}.status is not null
+      then ${TABLE}.status
+      else "No status"
+      end;;
+  }
+
 
   dimension: user_id {
     type: number
