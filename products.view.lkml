@@ -7,6 +7,18 @@ view: products {
     sql: ${TABLE}.id ;;
   }
 
+  parameter: geo_polygon {
+    default_value: ""
+    description: "Use this for filtering users based on filtering dimensions, requires this format: [[0.0], [0.0]], use geojson.io to generate a valid polygon"
+    type: string
+  }
+
+  dimension: is_last_location_in_polygon {
+    type: yesno
+    sql:  {% parameter geo_polygon %} ;;
+  }
+
+
   dimension: brand {
     type: string
     sql: ${TABLE}.brand ;;

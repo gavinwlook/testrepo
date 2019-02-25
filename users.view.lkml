@@ -113,6 +113,14 @@ dimension: date_granularity {
     sql: ${TABLE}.state ;;
   }
 
+  dimension: new_country {
+    type: string
+    map_layer_name: countries
+    sql:  case when ${state} = 'California' then 'Germany'
+              when ${state} = 'Texas' then 'France'
+              else 'Belgium' end;;
+  }
+
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
