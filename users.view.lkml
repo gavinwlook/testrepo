@@ -13,6 +13,10 @@ view: users {
   }
   }
 
+parameter: date_parameter {
+  type: date
+}
+
 dimension: date_granularity {
      label_from_parameter: granularity_selector
      sql:
@@ -27,8 +31,33 @@ dimension: date_granularity {
  }
 
 
+  dimension: gender_full {
+     type: string
+    case: {
+      when: {
+          label: "female"
+      }
+      when: {
+        sql: ${TABLE}.gender = "m" ;;
+         label: "male"
+      }
+    }
+    alpha_sort: yes
+  }
+
+  parameter: Checking_something{
+    type: unquoted
+    allowed_value: {
+      label: "Includes everything"
+      value: "1 = 1"
+    }
+    allowed_value: {
+      label: "Excludes something"
+      value: "users.id < 1000"
+    }
+  }
+
   dimension: id {
-    view_label: ""
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
@@ -82,6 +111,7 @@ dimension: date_granularity {
       date,
       week,
       month,
+      month_name,
       quarter,
       year
     ]
