@@ -29,6 +29,18 @@ view: products {
     sql: ${TABLE}.category ;;
   }
 
+measure: count_jeans {
+  type: sum
+  sql:  case when ${category} = "Jeans" then 1
+        else 0
+        end;;
+}
+
+  dimension: sub_true_false {
+    type: yesno
+    sql: ${category} in ( select ${category} from ${TABLE} where ${category} = 'Jeans') ;;
+  }
+
   dimension: department {
     type: string
     sql: ${TABLE}.department ;;
@@ -52,6 +64,12 @@ view: products {
   dimension: sku {
     type: string
     sql: ${TABLE}.sku ;;
+  }
+
+  measure: average_price {
+    type:  average
+    value_format: "##0.00"
+    sql: ${retail_price} ;;
   }
 
   measure: count {

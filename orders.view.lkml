@@ -3,7 +3,7 @@ view: orders {
 
 
 
-parameter: date_parameter {
+parameter: date_parameteeer {
   default_value: "15-jan-2018"
   type: date
 }
@@ -22,9 +22,11 @@ parameter: date_parameter {
       date,
       day_of_week,
       week,
+      hour_of_day,
       week_of_year,
       month,
       month_name,
+      quarter_of_year,
       quarter,
       fiscal_quarter,
       fiscal_quarter_of_year,
@@ -93,6 +95,21 @@ dimension: another_date2 {
       then ${TABLE}.status
       else "No status"
       end;;
+    html:
+    <a href="/dashboards/2360?Status={{ value }}&Age={{ users.age._value }}&date={{ orders.created_date._filterable_value }}">{{ value }}</a> ;;
+
+  }
+
+  dimension: status3 {
+    type: string
+    sql: case when ${TABLE}.status is not null
+      then ${TABLE}.status
+      else "No status"
+      end;;
+    link: {
+      label: "Drill to Explore"
+      url:"https://master.dev.looker.com/explore/gavlook/orders?fields=inventory_items.cost,orders.created_date,orders.status2,orders.count,users.age,explore_source.gender,users.country&f[orders.created_date]={{ _filters['orders.created_date'] }}&f[users.age]={{ _filters['users.age'] }}&f[orders.status2]={{ value }}&vis=%7B%22type%22%3A%22table"
+    }
   }
 
 
@@ -101,6 +118,7 @@ dimension: another_date2 {
     # hidden: yes
     sql: ${TABLE}.user_id ;;
   }
+
 
   measure: count {
     type: count
@@ -126,10 +144,30 @@ dimension: another_date2 {
     }
   }
 
+  filter: for_dimension {
+    type: number
+  }
+
+dimension: from_filter {
+  type: number
+  sql: { % condition for_dimension % } 1
+{ % endcondition % } ;;
+}
+
+  # EXTERNAL DEPENDENCY EXAMPLE
+
+measure: ctr {
+type: number
+sql: ((sum(${user_id}) / ${inventory_items.id}*100);;
+value_format: "0.00%"
+}
+
   measure: filtered_count {
     type: sum
     sql_distinct_key: ${id} ;;
     sql: CASE WHEN {% condition users.city_filter %} demo_db.users.city {% endcondition %} THEN 1 ELSE NULL END ;;
     drill_fields: [id, users.first_name, users.last_name, users.id, order_items.count]
   }
+
+
 }

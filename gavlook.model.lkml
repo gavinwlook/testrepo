@@ -1,4 +1,5 @@
 connection: "thelook"
+include: "*.dashboard"
 
 datagroup: mysqltest_default_datagroup {
   max_cache_age: "12 hour"
@@ -22,7 +23,13 @@ explore: events {
 #       value: "this month"
 #     }
 #     unless: [created_date]
-#   }
+#  alw }
+always_filter: {
+  filters: {
+    field: created_date
+    value: "this year"
+  }
+}
   join: users {
     type: left_outer
     sql_on: ${events.user_id} = ${users.id} ;;
@@ -39,6 +46,8 @@ explore: inventory_items {
 }
 
  explore: order_items {
+#   cancel_grouping_fields: [
+#     user_category_orders.string_list]
  # sql_always_where: {% parameter order_items.returned_status %} ;;
 
 #   sql_always_where: {% assign other_date = order_items.date_filter date_start | date: '%s' %}
@@ -60,6 +69,12 @@ explore: inventory_items {
 #   1 = 1
 #   {% endif %} ;;
 
+  always_filter: {
+    filters: {
+      field: users.created_date
+      value: "this year"
+    }
+}
   join: inventory_items {
     type: left_outer
     sql_on:
@@ -84,6 +99,16 @@ explore: inventory_items {
     sql_on: ${orders.user_id} = ${users.id} ;;
     relationship: many_to_one
   }
+  join: user_category_orders {
+    type: left_outer
+    sql_on: ${user_category_orders.user_id} = ${users.id} ;;
+    relationship: one_to_many
+  }
+  join: genius_view {
+    type: left_outer
+    sql_on: ${genius_view.user_id} = ${users.id} ;;
+    relationship: one_to_one
+  }
 }
 
 explore: orders {
@@ -91,6 +116,14 @@ explore: orders {
     type: left_outer
     sql_on: ${users.id} = (${orders.user_id})   ;;
     relationship: many_to_one
+  }
+  join: explore_source {
+    sql_on: ${explore_source.user_id} = (${orders.user_id}) ;;
+    relationship: one_to_one
+  }
+  join: inventory_items {
+    sql_on: ${inventory_items.id} = ${orders.id} ;;
+    relationship: one_to_one
   }
 }
 
@@ -115,6 +148,7 @@ explore: user_data {
 }
 
 explore: users {
+     fields: [-orders.ctr]
 #   sql_always_where: ${created_year} > "1990"  ;;
   always_filter: {
     filters: {
@@ -129,6 +163,15 @@ explore: users {
   }
 }
 
+
+explore: inventory_items_extended {
+  extends: [inventory_items]
+  join: orders {
+    type: left_outer
+    sql_on: ${inventory_items.id} = ${orders.id}  ;;
+  }
+}
+
 explore: users_nn {}
 
 explore: teststrings {}
@@ -138,3 +181,11 @@ explore: valueformat {}
 explore: ndt_view {}
 
 explore: TestPDTView {}
+
+explore: Test_Review_1 {}
+
+explore: Test_Review_2 {}
+
+explore: my_query {}
+
+explore: orders_cost {}

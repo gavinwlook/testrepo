@@ -30,6 +30,11 @@ dimension: date_granularity {
        END ;;
  }
 
+dimension: is_new {
+  type: yesno
+  sql:  LOWER(SUBSTR(${state}, 1, 3) = 'new');;
+}
+
 
   dimension: gender_full {
      type: string
@@ -91,6 +96,14 @@ dimension: date_granularity {
   }
 
 
+  dimension: age_tier {
+    type: tier
+    tiers: [0, 10, 20, 30, 40, 50, 60, 70, 80]
+    style: classic # the default value, could be excluded
+    sql: ${age} ;;
+}
+
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -139,8 +152,17 @@ dimension: date_granularity {
   }
 
   dimension: state {
+#     suggest_dimension: new_state
     type: string
     sql: ${TABLE}.state ;;
+  }
+
+  dimension: new_state {
+    type: string
+    sql: case when LOWER(SUBSTR(${state}, 1, 3) = 'new') THEN ${state}
+    ELSE Null
+    END
+    ;;
   }
 
   dimension: new_country {
@@ -157,10 +179,9 @@ dimension: date_granularity {
   }
 
   measure: count {
-    view_label: ""
     type: count
     drill_fields: [detail*]
-    value_format_name: decimal_3
+    value_format: "#.##0.##"
   }
 
   measure: test_count {

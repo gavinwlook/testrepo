@@ -57,6 +57,14 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  measure: total_sale_price {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd_0
+  }
+
+
+
   # {% assign today_date = 'now' | date: '%s' %}
 # {% assign pre_date = product.metafields.Release-Date.preOrder | date: '%s' %}
 # {% if today_date > pre_date %}
