@@ -76,4 +76,10 @@ measure: count_jeans {
     type: count
     drill_fields: [id, item_name, inventory_items.count]
   }
+
+  measure: price {
+    type: number
+    sql: ${retail_price} ;;
+
+  }
 }

@@ -57,12 +57,21 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+
   measure: total_sale_price {
     type: sum
     sql: ${sale_price} ;;
     value_format_name: usd_0
   }
 
+
+
+  measure: test_measure {
+    type: sum
+    sql: ${sale_price} * 1000000000 ;;
+    value_format: "[>=1000000000]#,##0,,,\"bn\";[>=1000000]0,,\"mn\";[>=1000]#,##0;#"
+
+  }
 
 
   # {% assign today_date = 'now' | date: '%s' %}
@@ -82,4 +91,6 @@ measure: percent_of_total {
     type: count
     drill_fields: [id, inventory_items.id, orders.id]
   }
+
+
 }
