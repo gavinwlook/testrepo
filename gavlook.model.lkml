@@ -1,6 +1,8 @@
 connection: "thelook"
 include: "*.dashboard"
 
+#ghghghhghgghhghg
+
 datagroup: mysqltest_default_datagroup {
   max_cache_age: "12 hour"
 }
@@ -38,6 +40,7 @@ always_filter: {
 }
 
 explore: inventory_items {
+  view_name: inventory_items
   join: products {
     type: left_outer
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
@@ -148,13 +151,13 @@ explore: user_data {
 }
 
 explore: users {
-     fields: [-orders.ctr]
+#     fields: [-orders.ctr]
 #   sql_always_where: ${created_year} > "1990"  ;;
-  always_filter: {
-    filters: {
-      field: state
-      value: "-New York"}
-    }
+#   always_filter: {
+#     filters: {
+#       field: state
+#       value: "-New York"}
+#     }
   view_label: ""
   join: orders {
     type: left_outer
@@ -165,14 +168,17 @@ explore: users {
 
 
 explore: inventory_items_extended {
-  extends: [inventory_items]
+  extends: [inventory_items, users]
+  fields: [ALL_FIELDS*, -orders.status]
   join: orders {
     type: left_outer
     sql_on: ${inventory_items.id} = ${orders.id}  ;;
   }
 }
 
-explore: users_nn {}
+explore: users_nn {
+  view_name: users_nn
+}
 
 explore: teststrings {}
 
@@ -186,6 +192,13 @@ explore: Test_Review_1 {}
 
 explore: Test_Review_2 {}
 
-explore: my_query {}
+explore: my_query {
+  view_name: my_query
+}
 
 explore: orders_cost {}
+
+explore: users_nn_extended {
+  extends: [schema_migrations, users_nn]
+  fields: [ALL_FIELDS*]
+}

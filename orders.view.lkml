@@ -41,6 +41,17 @@ dimension: another_date {
   sql: ${TABLE}.created_at ;;
 }
 
+parameter: input_field {
+  type: date
+}
+
+dimension: order_is_on_this_day {
+
+  type: yesno
+  sql: (${created_date} = {% parameter input_field %}) ;;
+}
+
+
 dimension: another_date2 {
     type: date_month
     sql: ${TABLE}.created_at ;;
@@ -80,7 +91,7 @@ dimension: another_date2 {
   measure: status {
     type: number
 
-    sql: {% if users.gender._in_query %} ${users.count}{% else %} ${count}{% endif %} ;;
+    sql: round({% if users.gender._in_query %} ${users.count}{% else %} ${count}{% endif %} / 10) ;;
   }
 
 #   measure: status {
@@ -156,18 +167,18 @@ dimension: from_filter {
 
   # EXTERNAL DEPENDENCY EXAMPLE
 
-measure: ctr {
-type: number
-sql: ((sum(${user_id}) / ${inventory_items.id}*100);;
-value_format: "0.00%"
-}
+# measure: ctr {
+# type: number
+# sql: ((sum(${user_id}) / ${inventory_items.id}*100);;
+# value_format: "0.00%"
+# }
 
-  measure: filtered_count {
-    type: sum
-    sql_distinct_key: ${id} ;;
-    sql: CASE WHEN {% condition users.city_filter %} demo_db.users.city {% endcondition %} THEN 1 ELSE NULL END ;;
-    drill_fields: [id, users.first_name, users.last_name, users.id, order_items.count]
-  }
+#   measure: filtered_count {
+#     type: sum
+#     sql_distinct_key: ${id} ;;
+#     sql: CASE WHEN {% condition users.city_filter %} demo_db.users.city {% endcondition %} THEN 1 ELSE NULL END ;;
+#     drill_fields: [id, users.first_name, users.last_name, users.id, order_items.count]
+#   }
 
 
 }

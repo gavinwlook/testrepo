@@ -65,12 +65,12 @@ dimension: is_new {
   dimension: id {
     primary_key: yes
     type: number
-    sql: ${TABLE}.id ;;
+    # sql: ${TABLE}.id ;;
   }
 
   dimension: age {
     view_label: ""
-    type: number
+    type: string
     sql: ${TABLE}.age ;;
   }
 
@@ -81,19 +81,19 @@ dimension: is_new {
     suggest_dimension: city
   }
 
-  dimension: city_satisfies_filter{
-  type: yesno
-  hidden: yes
-  sql: {% condition city_filter %} ${city} {% endcondition %} ;;
-  }
+#   dimension: city_satisfies_filter{
+#   type: yesno
+#   hidden: yes
+#   sql: {% condition city_filter %} ${city} {% endcondition %} ;;
+#   }
 
-  measure: count_dynamic_city {
-    type: count
-    filters: {
-      field: city_satisfies_filter
-      value: "yes"
-    }
-  }
+#   measure: count_dynamic_city {
+#     type: count
+#     filters: {
+#       field: city_satisfies_filter
+#       value: "yes"
+#     }
+#   }
 
 
   dimension: age_tier {
@@ -104,15 +104,15 @@ dimension: is_new {
 }
 
 
-  dimension: city {
+  measure: city {
     type: string
     sql: ${TABLE}.city ;;
-     suggest_persist_for: "0 hours"
+#      suggest_persist_for: "0 hours"
   }
 
-  dimension: country {
+  measure: country {
     type: string
-    map_layer_name: countries
+#     map_layer_name: countries
     sql: ${TABLE}.country ;;
   }
 
@@ -139,6 +139,16 @@ dimension: is_new {
   dimension: first_name {
     type: string
     sql: ${TABLE}.first_name ;;
+  }
+
+  measure: first_name1 {
+    type: string
+    sql: ${TABLE}.first_name ;;
+  }
+
+  measure: last_name2 {
+    type: string
+    sql: ${TABLE}.last_name ;;
   }
 
   dimension: gender {
@@ -184,15 +194,15 @@ dimension: is_new {
     value_format: "#.##0.##"
   }
 
-  measure: test_count {
-    type: count_distinct
-    sql:  (select ${city} where ${state} = "New York") ;;
-  }
+#   measure: test_count {
+#     type: count_distinct
+#     sql:  (select ${city} where ${state} = "New York") ;;
+#   }
 
-  measure: test_count2 {
-    type: count_distinct
-    sql:  ${city} ;;
-  }
+#   measure: test_count2 {
+#     type: count_distinct
+#     sql:  ${city} ;;
+#   }
 
 
   measure: count_male {
